@@ -1,0 +1,95 @@
+// Product.java
+public class Product {
+    private String productId;
+    private String productName;
+    private int quantity;
+    private double price;
+
+    public Product(String productId, String productName, int quantity, double price) {
+        this.productId = productId;
+        this.productName = productName;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
+    public String getProductId() { return productId; }
+    public String getProductName() { return productName; }
+    public int getQuantity() { return quantity; }
+    public double getPrice() { return price; }
+
+    public void setQuantity(int quantity) { this.quantity = quantity; }
+    public void setPrice(double price) { this.price = price; }
+
+    @Override
+    public String toString() {
+        return productId + " - " + productName + " | Qty: " + quantity + " | Price: " + price;
+    }
+}
+
+// Inventory.java
+import java.util.HashMap;
+
+public class Inventory {
+    private HashMap<String, Product> products;
+
+    public Inventory() {
+        products = new HashMap<>();
+    }
+
+    // Add product
+    public void addProduct(Product product) {
+        products.put(product.getProductId(), product);
+    }
+
+    // Update product
+    public void updateProduct(String productId, int quantity, double price) {
+        if (products.containsKey(productId)) {
+            Product p = products.get(productId);
+            p.setQuantity(quantity);
+            p.setPrice(price);
+        } else {
+            System.out.println("Product not found!");
+        }
+    }
+
+    public void deleteProduct(String productId) {
+        products.remove(productId);
+    }
+
+    public Product getProduct(String productId) {
+        return products.get(productId);
+    }
+
+    public void displayInventory() {
+        for (Product p : products.values()) {
+            System.out.println(p);
+        }
+    }
+}
+
+// Main.java
+public class Main {
+    public static void main(String[] args) {
+        Inventory inventory = new Inventory();
+
+        // Add products
+        Product p1 = new Product("101", "Laptop", 10, 75000);
+        Product p2 = new Product("102", "Mouse", 50, 500);
+        inventory.addProduct(p1);
+        inventory.addProduct(p2);
+
+        // Display inventory
+        System.out.println("Initial Inventory:");
+        inventory.displayInventory();
+
+        // Update product
+        inventory.updateProduct("101", 8, 72000);
+
+        // Delete product
+        inventory.deleteProduct("102");
+
+        // Display inventory again
+        System.out.println("\nUpdated Inventory:");
+        inventory.displayInventory();
+    }
+}
