@@ -1,0 +1,22 @@
+class Task {
+    String taskId, taskName, status;
+    Task next;
+    Task(String id,String name,String st){ taskId=id; taskName=name; status=st; }
+}
+
+class TaskList {
+    Task head;
+    void add(Task t){ t.next=head; head=t; }
+    Task search(String id){
+        Task curr=head; while(curr!=null){ if(curr.taskId.equals(id)) return curr; curr=curr.next; }
+        return null;
+    }
+    void traverse(){ Task curr=head; while(curr!=null){ System.out.println(curr.taskName); curr=curr.next; } }
+    void delete(String id){
+        Task curr=head, prev=null;
+        while(curr!=null){
+            if(curr.taskId.equals(id)){ if(prev==null) head=curr.next; else prev.next=curr.next; return; }
+            prev=curr; curr=curr.next;
+        }
+    }
+}

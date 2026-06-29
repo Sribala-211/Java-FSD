@@ -1,0 +1,27 @@
+class Product {
+    String productId, productName, category;
+    Product(String id, String name, String cat) {
+        productId = id; productName = name; category = cat;
+    }
+}
+
+class LinearSearch {
+    static Product search(Product[] arr, String name) {
+        for (Product p : arr) if (p.productName.equalsIgnoreCase(name)) return p;
+        return null;
+    }
+}
+
+class BinarySearch {
+    static Product search(Product[] arr, String name) {
+        Arrays.sort(arr, Comparator.comparing(p -> p.productName));
+        int l=0, r=arr.length-1;
+        while(l<=r){
+            int m=(l+r)/2;
+            int cmp=arr[m].productName.compareToIgnoreCase(name);
+            if(cmp==0) return arr[m];
+            if(cmp<0) l=m+1; else r=m-1;
+        }
+        return null;
+    }
+}

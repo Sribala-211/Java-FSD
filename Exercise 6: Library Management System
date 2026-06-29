@@ -1,0 +1,22 @@
+class Book {
+    String bookId, title, author;
+    Book(String id,String t,String a){ bookId=id; title=t; author=a; }
+}
+
+class BookSearch {
+    static Book linear(Book[] arr,String title){
+        for(Book b:arr) if(b.title.equalsIgnoreCase(title)) return b;
+        return null;
+    }
+    static Book binary(Book[] arr,String title){
+        Arrays.sort(arr,Comparator.comparing(b->b.title));
+        int l=0,r=arr.length-1;
+        while(l<=r){
+            int m=(l+r)/2;
+            int cmp=arr[m].title.compareToIgnoreCase(title);
+            if(cmp==0) return arr[m];
+            if(cmp<0) l=m+1; else r=m-1;
+        }
+        return null;
+    }
+}

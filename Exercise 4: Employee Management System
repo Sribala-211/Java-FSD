@@ -1,0 +1,27 @@
+class Employee {
+    String employeeId, name, position;
+    double salary;
+    Employee(String id,String n,String pos,double sal){
+        employeeId=id; name=n; position=pos; salary=sal;
+    }
+}
+
+class EmployeeSystem {
+    Employee[] employees;
+    int count=0;
+    EmployeeSystem(int size){ employees=new Employee[size]; }
+
+    void add(Employee e){ employees[count++]=e; }
+    Employee search(String id){
+        for(Employee e:employees) if(e!=null && e.employeeId.equals(id)) return e;
+        return null;
+    }
+    void traverse(){ for(Employee e:employees) if(e!=null) System.out.println(e.name); }
+    void delete(String id){
+        for(int i=0;i<count;i++){
+            if(employees[i].employeeId.equals(id)){
+                employees[i]=employees[count-1]; employees[count-1]=null; count--; break;
+            }
+        }
+    }
+}
